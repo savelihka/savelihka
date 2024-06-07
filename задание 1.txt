@@ -1,0 +1,31 @@
+func findMaxEvenIndexElement(in array: [Int]) -> Int? {
+    // Проверяем, что массив не пустой и содержит хотя бы один элемент с четным индексом
+    guard !array.isEmpty && array.indices.contains(where: { $0 % 2 == 0 }) else {
+        return nil
+    }
+    
+    var maxElement: Int?
+    
+    // Начинаем поиск с первого четного индекса (индекс 0)
+    for i in stride(from: 0, to: array.count, by: 2) {
+        if let currentElement = maxElement {
+            // Если текущий элемент больше максимального, обновляем максимальный
+            if array[i] > currentElement {
+                maxElement = array[i]
+            }
+        } else {
+            // Если maxElement еще не определен, присваиваем текущий элемент
+            maxElement = array[i]
+        }
+    }
+    
+    return maxElement
+}
+
+// Пример использования
+let array = [2, 5, 9, 3, 6, 1, 8, 7]
+if let maxEvenIndexElement = findMaxEvenIndexElement(in: array) {
+    print("Максимальный элемент с четным индексом: \(maxEvenIndexElement)")
+} else {
+    print("В массиве нет элементов с четными индексами.")
+}
